@@ -137,3 +137,5 @@ IF(PX_GENERATE_SOURCE_DISTRO)
 		FILE(APPEND "${CMAKE_CURRENT_BINARY_DIR}/source_distro_list.txt" "${FILE_NAME}\n")
 	ENDFOREACH()
 ENDIF()
+
+install(EXPORT PhysX-config DESTINATION cmake/)
