@@ -138,4 +138,4 @@ IF(PX_GENERATE_SOURCE_DISTRO)
 	ENDFOREACH()
 ENDIF()
 
-install(EXPORT PhysX-config DESTINATION cmake/)
+install(EXPORT physx-config DESTINATION cmake/)

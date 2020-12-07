@@ -117,7 +117,7 @@ SET(PHYSXDISTRO_LIBS PhysXFoundation PhysX PhysXCharacterKinematic PhysXPvdSDK P
 
 INSTALL(
 	TARGETS ${PHYSXDISTRO_LIBS}
-	EXPORT PhysX-config
+	EXPORT physx-config
 	DESTINATION $<$<CONFIG:debug>:${PX_ROOT_LIB_DIR}/debug>$<$<CONFIG:release>:${PX_ROOT_LIB_DIR}/release>$<$<CONFIG:checked>:${PX_ROOT_LIB_DIR}/checked>$<$<CONFIG:relwithdebinfo>:${PX_ROOT_LIB_DIR}/relwithdebinfo>	
 	)
 
