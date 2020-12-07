@@ -39,13 +39,15 @@ using namespace physx;
 namespace
 {
 
-#define SN_NUM_BINARY_PLATFORMS 16
+#define SN_NUM_BINARY_PLATFORMS 18
 const PxU32 sBinaryPlatformTags[SN_NUM_BINARY_PLATFORMS] =
 {
 	PX_MAKE_FOURCC('W','_','3','2'),
 	PX_MAKE_FOURCC('W','_','6','4'),
 	PX_MAKE_FOURCC('L','_','3','2'),
 	PX_MAKE_FOURCC('L','_','6','4'),
+	PX_MAKE_FOURCC('L','A','3','2'),
+	PX_MAKE_FOURCC('L','A','6','4'),
 	PX_MAKE_FOURCC('M','_','3','2'),
 	PX_MAKE_FOURCC('M','_','6','4'),
 	PX_MAKE_FOURCC('M','O','C','A'),
@@ -66,6 +68,8 @@ const char* sBinaryPlatformNames[SN_NUM_BINARY_PLATFORMS] =
 	"win64",
 	"linux32",
 	"linux64",
+	"linuxarm",
+	"linuxarm64",
 	"mac32",
 	"mac64",
 	"ps4",
@@ -94,30 +98,34 @@ PxU32 getBinaryPlatformTag()
 	return sBinaryPlatformTags[2];
 #elif PX_LINUX && PX_X64
 	return sBinaryPlatformTags[3];
-#elif PX_OSX && PX_X86
+#elif PX_LINUX && PX_ARM
 	return sBinaryPlatformTags[4];
-#elif PX_OSX && PX_X64
-	return sBinaryPlatformTags[5];
-#elif PX_PS4
-	return sBinaryPlatformTags[6];
-#elif PX_ANDROID
-	return sBinaryPlatformTags[7];
-#elif PX_IOS && PX_ARM
-	return sBinaryPlatformTags[8];
-#elif PX_IOS && PX_A64
-	return sBinaryPlatformTags[9];
-#elif PX_XBOXONE
-	return sBinaryPlatformTags[10];
-#elif PX_SWITCH && !PX_A64
-	return sBinaryPlatformTags[11];
-#elif PX_SWITCH && PX_A64
-	return sBinaryPlatformTags[12];
 #elif PX_LINUX && PX_A64
+	return sBinaryPlatformTags[5];
+#elif PX_OSX && PX_X86
+	return sBinaryPlatformTags[6];
+#elif PX_OSX && PX_X64
+	return sBinaryPlatformTags[7];
+#elif PX_PS4
+	return sBinaryPlatformTags[8];
+#elif PX_ANDROID
+	return sBinaryPlatformTags[9];
+#elif PX_IOS && PX_ARM
+	return sBinaryPlatformTags[10];
+#elif PX_IOS && PX_A64
+	return sBinaryPlatformTags[11];
+#elif PX_XBOXONE
+	return sBinaryPlatformTags[12];
+#elif PX_SWITCH && !PX_A64
 	return sBinaryPlatformTags[13];
-#elif PX_UWP && PX_ARM
+#elif PX_SWITCH && PX_A64
 	return sBinaryPlatformTags[14];
-#elif PX_UWP && PX_A64
+#elif PX_LINUX && PX_A64
 	return sBinaryPlatformTags[15];
+#elif PX_UWP && PX_ARM
+	return sBinaryPlatformTags[16];
+#elif PX_UWP && PX_A64
+	return sBinaryPlatformTags[17];
 #else
 	#error Unknown binary platform
 #endif
