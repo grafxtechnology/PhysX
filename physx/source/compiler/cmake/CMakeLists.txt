@@ -83,14 +83,30 @@ IF (NOT EXISTS ${PXSHARED_PATH})
 ENDIF()
 
 IF(CMAKE_CONFIGURATION_TYPES)
-	SET(CMAKE_CONFIGURATION_TYPES debug checked relwithdebinfo release)
+	SET(CMAKE_CONFIGURATION_TYPES debug asan relwithdebinfo release)
 	SET(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES}" CACHE STRING
 		"Reset config to what we need" 
 		FORCE)
-	
-	SET(CMAKE_SHARED_LINKER_FLAGS_CHECKED "")
-	SET(CMAKE_SHARED_LINKER_FLAGS_PROFILE "")
 
+	set(CMAKE_C_FLAGS_ASAN
+		"${CMAKE_C_FLAGS_RELWITHDEBINFO}" CACHE STRING
+		"Flags used by the C compiler during ASAN builds.")
+	set(CMAKE_CXX_FLAGS_ASAN
+		"${CMAKE_CXX_FLAGS_RELWITHDEBINFO}" CACHE STRING
+		"Flags used by the CXX compiler during ASAN builds.")
+	set(CMAKE_EXE_LINKER_FLAGS_ASAN
+		"${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO}" CACHE STRING
+		"Flags used by the linker during ASAN builds.")
+	set(CMAKE_MODULE_LINKER_FLAGS_ASAN
+		"${CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO}" CACHE STRING
+		"Flags used by the linker during the creation of modules during ASAN builds.")
+	set(CMAKE_SHARED_LINKER_FLAGS_ASAN
+		"${CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO}" CACHE STRING
+		"Flags used by the linker during the creation of shared libraries during ASAN builds")
+	set(CMAKE_STATIC_LINKER_FLAGS_ASAN
+		"${CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO}" CACHE STRING
+		"Flags used by the linker during the creation of static libraries during ASAN builds")
+	
 	# Build PDBs for all configurations
 	SET(CMAKE_SHARED_LINKER_FLAGS "/DEBUG")
 	

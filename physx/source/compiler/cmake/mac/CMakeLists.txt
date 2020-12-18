@@ -30,13 +30,13 @@ SET(CMAKE_OSX_ARCHITECTURES "x86_64")
 
 SET(PHYSX_CXX_FLAGS "${OSX_BITNESS} -msse2 -std=c++11 -fno-rtti -fno-exceptions -ffunction-sections -fdata-sections -Werror -ferror-limit=0 -Wall -Wextra -fstrict-aliasing -Wstrict-aliasing=2 -Weverything -Wno-unknown-warning-option -Wno-documentation-deprecated-sync -Wno-documentation-unknown-command -Wno-float-equal -Wno-padded -Wno-weak-vtables -Wno-cast-align -Wno-conversion -Wno-missing-noreturn -Wno-missing-variable-declarations -Wno-shift-sign-overflow -Wno-covered-switch-default -Wno-exit-time-destructors -Wno-global-constructors -Wno-missing-prototypes -Wno-unreachable-code -Wno-unused-macros -Wno-unused-member-function -Wno-used-but-marked-unused -Wno-weak-template-vtables -Wno-deprecated -Wno-non-virtual-dtor -Wno-invalid-noreturn -Wno-return-type-c-linkage -Wno-reserved-id-macro -Wno-c++98-compat-pedantic -Wno-unused-local-typedef -Wno-old-style-cast -Wno-newline-eof -Wno-unused-private-field -Wno-undefined-reinterpret-cast -Wno-invalid-offsetof -Wno-zero-as-null-pointer-constant -gdwarf-2" CACHE INTERAL "PhysX CXX")
 
-SET(CMAKE_SHARED_LINKER_FLAGS_CHECKED "")
+SET(CMAKE_SHARED_LINKER_FLAGS_ASAN "")
 SET(CMAKE_SHARED_LINKER_FLAGS_PROFILE "")
 SET(CMAKE_SHARED_LINKER_FLAGS "")
 
 # Build debug info for all configurations
 SET(PHYSX_CXX_FLAGS_DEBUG "-O0 -g" CACHE INTERAL "PhysX Debug CXX Flags")
-SET(PHYSX_CXX_FLAGS_CHECKED "-O3 -g" CACHE INTERAL "PhysX Checked CXX Flags")
+SET(PHYSX_CXX_FLAGS_ASAN "-O3 -g" CACHE INTERAL "PhysX Checked CXX Flags")
 SET(PHYSX_CXX_FLAGS_PROFILE "-O3 -g" CACHE INTERAL "PhysX RelWithDebInfo CXX Flags")
 SET(PHYSX_CXX_FLAGS_RELEASE "-O3 -g" CACHE INTERAL "PhysX Release CXX Flags")
 
@@ -44,7 +44,7 @@ SET(PHYSX_CXX_FLAGS_RELEASE "-O3 -g" CACHE INTERAL "PhysX Release CXX Flags")
 SET(CMAKE_CXX_FLAGS ${PHYSX_CXX_FLAGS})
 
 SET(CMAKE_CXX_FLAGS_DEBUG   ${PHYSX_CXX_FLAGS_DEBUG})
-SET(CMAKE_CXX_FLAGS_CHECKED ${PHYSX_CXX_FLAGS_CHECKED})
+SET(CMAKE_CXX_FLAGS_ASAN ${PHYSX_CXX_FLAGS_ASAN})
 SET(CMAKE_CXX_FLAGS_PROFILE ${PHYSX_CXX_FLAGS_PROFILE})
 SET(CMAKE_CXX_FLAGS_RELEASE ${PHYSX_CXX_FLAGS_RELEASE})
 

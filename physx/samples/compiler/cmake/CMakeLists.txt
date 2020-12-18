@@ -55,14 +55,14 @@ ENDIF()
 INCLUDE(NvidiaBuildOptions)
 
 IF(CMAKE_CONFIGURATION_TYPES)
-	SET(CMAKE_CONFIGURATION_TYPES debug checked relwithdebinfo release)
+	SET(CMAKE_CONFIGURATION_TYPES debug asan relwithdebinfo release)
 	SET(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES}" CACHE STRING
 		"Reset config to what we need" 
 		FORCE)
 	
 	# Need to define these at least once.	
 	SET(CMAKE_EXE_LINKER_FLAGS_PROFILE "")
-	SET(CMAKE_EXE_LINKER_FLAGS_CHECKED "")	
+	SET(CMAKE_EXE_LINKER_FLAGS_ASAN "")	
 ENDIF()
 
 SET(SOURCE_DISTRO_FILE_LIST "")
