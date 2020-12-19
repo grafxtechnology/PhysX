@@ -9,7 +9,6 @@ OPTION(NV_FORCE_32BIT_SUFFIX "Force a 32 bit suffix for platforms that don't reg
 
 INCLUDE(SetOutputPaths)
 
-
 IF(NV_USE_GAMEWORKS_OUTPUT_DIRS)
 
 	IF(NV_FORCE_32BIT_SUFFIX AND NV_FORCE_64BIT_SUFFIX)
