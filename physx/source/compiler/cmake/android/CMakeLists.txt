@@ -30,25 +30,25 @@
 
 STRING(TOLOWER "${CMAKE_BUILD_TYPE}" CMAKE_BUILD_TYPE_LOWERCASE)
 
-SET(PHYSX_WARNING_DISABLES "-Wno-invalid-offsetof -Wno-maybe-uninitialized  -Wno-unused-variable -Wno-variadic-macros -Wno-array-bounds -Wno-strict-aliasing")
+SET(PHYSX_WARNING_DISABLES "-Wno-invalid-offsetof -Wno-invalid-noreturn -Wno-unused-local-typedef -Wno-uninitialized -Wno-unused-private-field -Wno-unused-variable -Wno-variadic-macros -Wno-array-bounds -Wno-strict-aliasing")
 
 IF(${ANDROID_ABI} STREQUAL "armeabi-v7a")
-	SET(PHYSX_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic -std=c++11 -fno-rtti -fno-exceptions -ffunction-sections -fdata-sections -funwind-tables -fomit-frame-pointer -funswitch-loops -finline-limit=300 -fno-strict-aliasing -fstack-protector ${PHYSX_WARNING_DISABLES}" CACHE INTERAL "PhysX CXX")
+	SET(PHYSX_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic -std=c++11 -fno-rtti -fno-exceptions -ffunction-sections -fdata-sections -funwind-tables -fomit-frame-pointer -funswitch-loops -finline-limit=300 -fno-strict-aliasing -fstack-protector ${PHYSX_WARNING_DISABLES}" CACHE STRING "PhysX CXX")
 ELSEIF(${ANDROID_ABI} STREQUAL "armeabi-v7a with NEON")
-	SET(PHYSX_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic -std=c++11 -fno-rtti -fno-exceptions -ffunction-sections -funwind-tables -fomit-frame-pointer -funswitch-loops -finline-limit=300 -fno-strict-aliasing -fstack-protector ${PHYSX_WARNING_DISABLES}" CACHE INTERAL "PhysX CXX")
+	SET(PHYSX_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic -std=c++11 -fno-rtti -fno-exceptions -ffunction-sections -funwind-tables -fomit-frame-pointer -funswitch-loops -finline-limit=300 -fno-strict-aliasing -fstack-protector ${PHYSX_WARNING_DISABLES}" CACHE STRING "PhysX CXX")
 ELSEIF(${ANDROID_ABI} STREQUAL "arm64-v8a")
-	SET(PHYSX_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic -std=c++11 -fno-rtti -fno-exceptions -ffunction-sections -fdata-sections ${PHYSX_WARNING_DISABLES} " CACHE INTERAL "PhysX CXX")
+	SET(PHYSX_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic -std=c++11 -fno-rtti -fno-exceptions -ffunction-sections -fdata-sections ${PHYSX_WARNING_DISABLES} " CACHE STRING "PhysX CXX")
 ELSEIF(${ANDROID_ABI} STREQUAL "x86")
-	SET(PHYSX_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic -std=c++11 -fno-rtti -fno-exceptions -ffunction-sections -fdata-sections ${PHYSX_WARNING_DISABLES} -fpack-struct=8 -malign-double " CACHE INTERAL "PhysX CXX")
+	SET(PHYSX_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic -std=c++11 -fno-rtti -fno-exceptions -ffunction-sections -fdata-sections ${PHYSX_WARNING_DISABLES} -fpack-struct=8 -malign-double " CACHE STRING "PhysX CXX")
 ELSEIF(${ANDROID_ABI} STREQUAL "x86_64")
-	SET(PHYSX_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic -std=c++11 -fno-rtti -fno-exceptions -ffunction-sections -fdata-sections ${PHYSX_WARNING_DISABLES} -mstackrealign -msse3 " CACHE INTERAL "PhysX CXX")
+	SET(PHYSX_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic -std=c++11 -fno-rtti -fno-exceptions -ffunction-sections -fdata-sections ${PHYSX_WARNING_DISABLES} -mstackrealign -msse3 " CACHE STRING "PhysX CXX")
 ENDIF()
 
 # Build debug info for all configurations
-SET(PHYSX_CXX_FLAGS_DEBUG "-O0 -g" CACHE INTERAL "PhysX Debug CXX Flags")
-SET(PHYSX_CXX_FLAGS_ASAN "-O3 -g" CACHE INTERAL "PhysX Checked CXX Flags")
-SET(PHYSX_CXX_FLAGS_PROFILE "-O3 -g" CACHE INTERAL "PhysX RelWithDebInfo CXX Flags")
-SET(PHYSX_CXX_FLAGS_RELEASE "-O3 -g" CACHE INTERAL "PhysX Release CXX Flags")
+SET(PHYSX_CXX_FLAGS_DEBUG "-O0 -g" CACHE STRING "PhysX Debug CXX Flags")
+SET(PHYSX_CXX_FLAGS_ASAN "-O3 -g" CACHE STRING "PhysX Checked CXX Flags")
+SET(PHYSX_CXX_FLAGS_PROFILE "-O3 -g" CACHE STRING "PhysX RelWithDebInfo CXX Flags")
+SET(PHYSX_CXX_FLAGS_RELEASE "-O3 -g" CACHE STRING "PhysX Release CXX Flags")
 
 
 # These flags are local to the directory the CMakeLists.txt is in
@@ -112,3 +112,11 @@ SET_PROPERTY(TARGET FastXml PROPERTY FOLDER "PhysX SDK")
 SET_PROPERTY(TARGET PhysXPvdSDK PROPERTY FOLDER "PhysX SDK")
 SET_PROPERTY(TARGET PhysXTask PROPERTY FOLDER "PhysX SDK")
 SET_PROPERTY(TARGET PhysXFoundation PROPERTY FOLDER "PhysX SDK")
+
+SET(PHYSXDISTRO_LIBS PhysXFoundation PhysX PhysXCharacterKinematic PhysXPvdSDK PhysXCommon PhysXCooking PhysXExtensions PhysXVehicle)
+
+INSTALL(
+	TARGETS ${PHYSXDISTRO_LIBS}
+	EXPORT physx-config
+	DESTINATION $<$<CONFIG:debug>:${PX_ROOT_LIB_DIR}/debug>$<$<CONFIG:release>:${PX_ROOT_LIB_DIR}/release>$<$<CONFIG:asan>:${PX_ROOT_LIB_DIR}/asan>$<$<CONFIG:relwithdebinfo>:${PX_ROOT_LIB_DIR}/relwithdebinfo>	
+)
