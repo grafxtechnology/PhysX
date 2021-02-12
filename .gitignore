@@ -2,3 +2,4 @@
 physx/bin/
 install/
 CMakeFiles/
+.DS_Store
